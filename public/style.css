@@ -32,7 +32,7 @@ body {
     background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
     background-size: 25px 25px;
     color: var(--text-color);
-    display: flex; justify-content: center; align-items: center; height: 100vh; transition: background-color 0.3s ease;
+    display: flex; justify-content: center; align-items: center; height: 100dvh; transition: background-color 0.3s ease;
 }
 
 .rounded { border-radius: var(--border-radius); }
