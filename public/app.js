@@ -9,6 +9,7 @@ const interestsInput = document.getElementById('interests-input');
 const reportBtn = document.getElementById('report-btn');
 const typingIndicator = document.getElementById('typing-indicator');
 const genderButtons = document.querySelectorAll('.gender-btn');
+const genderModal = document.getElementById('gender-modal'); // تعريف المودال الجديد
 
 const popSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2354/2354-preview.mp3');
 
@@ -19,7 +20,7 @@ let selectedGender = ''; // لتخزين اختيار الجيندر
 let typingTimeout;
 let lastTypingTime = 0;
 
-// منطق اختيار الجيندر وتفعيل زرار Start (مدمج بدعم الموبايل والكمبيوتر)
+// لقط اختيار الجيندر من الـ Pop-up وقفل المودال فوراً وبدء الشات
 genderButtons.forEach(btn => {
     const handleGenderSelect = (e) => {
         // نمنع السلوك الافتراضي في التاتش عشان ميعملش double click أو يهنج
@@ -31,11 +32,9 @@ genderButtons.forEach(btn => {
         
         console.log("Selected Gender:", selectedGender); // للتأكد في الـ Console
 
-        // فك الحظر عن زرار Start لو لسه مبدأناش شات
-        if (!isChatting && actionBtn) {
-            actionBtn.disabled = false;
-            actionBtn.removeAttribute('disabled');
-        }
+        // إخفاء الـ Pop-up وبدء السيرفر علطول تلقائي صياعة!
+        if(genderModal) genderModal.classList.add('hidden');
+        connectToServer();
     };
 
     btn.addEventListener('click', handleGenderSelect);
@@ -123,15 +122,22 @@ function resetChatState() {
     messageInput.value = '';
     actionBtn.innerHTML = 'Start';
     typingIndicator.classList.add('hidden');
-    // نرجع نقفل الزرار لو مفيش جيندر متحدد
-    if (!selectedGender) {
-        actionBtn.disabled = true;
-    }
+    // مفيش داعي نقفل زرار Start هنا عشان محتاجينه يفتح الـ Pop-up لو اليوزر عمل ريفريش
 }
 
+// تعديل منطق زرار Start / Skip
 actionBtn.addEventListener('click', () => {
-    if (!isChatting) { connectToServer(); } 
-    else { if (ws) ws.close(); connectToServer(); }
+    if (!isChatting) {
+        // لو مفيش جيندر متثبت، يفتح الـ Pop-up الأول
+        if (!selectedGender) {
+            if(genderModal) genderModal.classList.remove('hidden');
+        } else {
+            connectToServer();
+        }
+    } else {
+        if (ws) ws.close(); 
+        connectToServer(); 
+    }
 });
 
 function sendMessage() {

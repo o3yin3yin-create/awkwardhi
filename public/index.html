@@ -32,14 +32,16 @@
             <input type="text" id="interests-input" placeholder="Add interests (comma separated)...">
         </div>
 
-        <div class="gender-wrapper box-shadow rounded">
-            <span class="gender-label">Select Gender:</span>
-            <div class="gender-options">
-               <button class="gender-btn" data-gender="male">Male 👦</button>
-               <button class="gender-btn" data-gender="female">Female 👩</button>
-            </div>
-            <div class="gender-notice">Nobody will see your gender. We just need it for our boring pie charts.</div>
+       <div id="gender-modal" class="modal hidden">
+    <div class="modal-content box-shadow rounded">
+        <h3>Select Gender</h3>
+        <div class="gender-options">
+            <button class="gender-btn" data-gender="male">Male 👦</button>
+            <button class="gender-btn" data-gender="female">Female 👩</button>
         </div>
+        <p class="gender-subtext">Nobody will see your gender. We just need it for our boring pie charts.</p>
+    </div>
+</div>
 
         <div class="chat-box rounded" id="chat-box">
             </div>
@@ -47,7 +49,7 @@
         <div id="typing-indicator" class="typing-indicator hidden">Stranger is typing...</div>
 
         <div class="bottom-controls">
-             <button id="action-btn" disabled>Start</button>                Start
+             <button id="action-btn">Start</button>                
             </button>
 
             <div class="input-wrapper box-shadow rounded">
