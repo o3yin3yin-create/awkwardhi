@@ -139,45 +139,53 @@ input:checked + .slider:before { transform: translateX(20px); }
 }
 /* ضبط التصميم خصيصاً للشاشات الصغيرة والموبايل */
 @media (max-width: 480px) {
-    /* ضبط الهيدر وترتيب العناصر جواه */
     header {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        gap: 10px;
-        padding: 10px;
+        gap: 8px;
+        padding: 8px 12px;
     }
 
     h1 {
-        font-size: 20px; /* تصغير حجم اسم الموقع */
+        font-size: 18px; /* تصغير اسم الموقع */
     }
 
-    /* ضبط زرار الريبورت عشان ميتمددش */
+    /* زرار الريبورت بقى كبسولة صغيرة */
     #report-btn {
-        padding: 6px 12px;
-        font-size: 12px;
+        padding: 4px 10px;
+        font-size: 11px;
         height: auto;
-        order: 2; /* ترتيبه في الهيدر */
+        order: 2;
     }
 
-    /* ضبط زرار التوجل (النايت مود) */
+    /* التوجل نزل حجمه لـ 75% عشان ميزمجرش في الشاشة */
     .theme-switch-wrapper {
         order: 3;
-        transform: scale(0.85); /* تصغير حجم التوجل شوية عشان ميتزقش برة */
+        transform: scale(0.75);
+        margin: 0;
     }
 
-    /* ضبط سكشن الجيندر */
+    /* تخسيس سكشن الجيندر بالكامل */
     .gender-container {
-        padding: 12px;
+        padding: 10px;
+        margin-bottom: 10px;
     }
 
+    .gender-container h3 {
+        font-size: 14px; /* تصغير كلمة Select Gender */
+        margin-bottom: 8px;
+    }
+
+    /* تصغير أزرار Male و Female */
     .gender-btn {
-        padding: 8px 16px;
-        font-size: 14px;
+        padding: 6px 12px;
+        font-size: 12px;
     }
 
     .gender-subtext {
-        font-size: 11px; /* تصغير الكلام الساخر اللي تحت الجيندر */
+        font-size: 10px;
+        margin-top: 6px;
     }
 }
