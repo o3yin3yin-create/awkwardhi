@@ -139,7 +139,13 @@ input:checked + .slider:before {
     overflow-y: auto; 
     display: flex; 
     flex-direction: column; 
-    gap: 10px; 
+    gap: 0; /* لغينا الـ gap عشان سفاري ميهيسش */
+}
+
+/* السحر: السوستة اللي بتزق الرسايل لتحت */
+.chat-box::before {
+    content: "";
+    flex: 1;
 }
 
 /* تظبيط البلور في الـ Dark Mode عشان يبقى متناسق */
@@ -314,9 +320,11 @@ input:checked + .slider:before {
         box-sizing: border-box;
     }
 
-    /* تضييق المسافات جوه صندوق الشات نفسه (قتلنا الـ flex خالص لسفاري) */
+    /* تضييق المسافات ورجوع الـ flex بشكل آمن لسفاري */
     .chat-box {
-        display: block !important; 
+        display: flex !important; 
+        flex-direction: column !important;
+        gap: 0 !important; /* صفرنا الـ gap عشان المسافات تفضل مسطرة */
         padding: 15px 12px !important;
     }
 
