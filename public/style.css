@@ -137,3 +137,47 @@ input:checked + .slider:before { transform: translateX(20px); }
 .dev-link:hover {
     color: var(--you-color);
 }
+/* ضبط التصميم خصيصاً للشاشات الصغيرة والموبايل */
+@media (max-width: 480px) {
+    /* ضبط الهيدر وترتيب العناصر جواه */
+    header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 20px; /* تصغير حجم اسم الموقع */
+    }
+
+    /* ضبط زرار الريبورت عشان ميتمددش */
+    #report-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        height: auto;
+        order: 2; /* ترتيبه في الهيدر */
+    }
+
+    /* ضبط زرار التوجل (النايت مود) */
+    .theme-switch-wrapper {
+        order: 3;
+        transform: scale(0.85); /* تصغير حجم التوجل شوية عشان ميتزقش برة */
+    }
+
+    /* ضبط سكشن الجيندر */
+    .gender-container {
+        padding: 12px;
+    }
+
+    .gender-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .gender-subtext {
+        font-size: 11px; /* تصغير الكلام الساخر اللي تحت الجيندر */
+    }
+}
