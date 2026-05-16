@@ -9,31 +9,28 @@ const interestsInput = document.getElementById('interests-input');
 const reportBtn = document.getElementById('report-btn');
 const typingIndicator = document.getElementById('typing-indicator');
 const genderButtons = document.querySelectorAll('.gender-btn');
-const genderModal = document.getElementById('gender-modal'); // تعريف المودال الجديد
+const genderModal = document.getElementById('gender-modal'); 
 
 const popSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2354/2354-preview.mp3');
 
 let ws; 
 let isChatting = false; 
 let userFlag = ''; 
-let selectedGender = ''; // لتخزين اختيار الجيندر
+let selectedGender = ''; 
 let typingTimeout;
 let lastTypingTime = 0;
-let pingInterval; // متغير عشان نحفظ فيه التايمر بتاع البنج
+let pingInterval; 
 
-// لقط اختيار الجيندر من الـ Pop-up وقفل المودال فوراً وبدء الشات
 genderButtons.forEach(btn => {
     const handleGenderSelect = (e) => {
-        // نمنع السلوك الافتراضي في التاتش عشان ميعملش double click أو يهنج
         if (e.type === 'touchend') e.preventDefault(); 
         
         genderButtons.forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
         selectedGender = btn.getAttribute('data-gender');
         
-        console.log("Selected Gender:", selectedGender); // للتأكد في الـ Console
+        console.log("Selected Gender:", selectedGender); 
 
-        // إخفاء الـ Pop-up وبدء السيرفر علطول تلقائي صياعة!
         if(genderModal) genderModal.classList.add('hidden');
         connectToServer();
     };
@@ -77,12 +74,10 @@ function addMessage(sender, text, isSystem = false) {
 function clearChat() { chatBox.innerHTML = ''; }
 
 function connectToServer() {
-    // تم التحديث للينك الـ Production الجديد على Railway بنجاح
     ws = new WebSocket('wss://awkwardhi-production.up.railway.app');
 
     ws.onopen = () => {
         const interests = interestsInput.value.split(',').map(i => i.trim()).filter(i => i);
-        // نبعت الاهتمامات، العلم، والجيندر المختار للسيرفر
         ws.send(JSON.stringify({ type: 'start', interests: interests, flag: userFlag, gender: selectedGender }));
         
         clearChat();
@@ -92,7 +87,11 @@ function connectToServer() {
         actionBtn.innerHTML = 'Skip';
         isChatting = true;
 
-        // الصياعة: يبعت بنج كل 30 ثانية عشان السيرفر ميفصلش
+        // التريكاية الأولى: تفعيل مربع الكتابة فوراً بعد ما الشات يبدأ (مع ديلاي بسيط عشان يلحق الـ DOM)
+        setTimeout(() => {
+            messageInput.focus();
+        }, 100);
+
         pingInterval = setInterval(() => { 
             if(ws && ws.readyState === WebSocket.OPEN) {
                 ws.send(JSON.stringify({ type: 'ping' })); 
@@ -131,14 +130,11 @@ function resetChatState() {
     actionBtn.innerHTML = 'Start';
     typingIndicator.classList.add('hidden');
     
-    // تنظيف التايمر بتاع البنج لما السيرفر يفصل عشان ميعلقش الذاكرة
     if (pingInterval) clearInterval(pingInterval);
 }
 
-// تعديل منطق زرار Start / Skip
 actionBtn.addEventListener('click', () => {
     if (!isChatting) {
-        // لو مفيش جيندر متثبت، يفتح الـ Pop-up الأول
         if (!selectedGender) {
             if(genderModal) genderModal.classList.remove('hidden');
         } else {
@@ -156,6 +152,9 @@ function sendMessage() {
         addMessage('You', text);
         ws.send(JSON.stringify({ type: 'chat', message: text }));
         messageInput.value = '';
+        
+        // التريكاية التانية: الكيبورد يفضل مفتوح بعد ما تبعت الرسالة
+        messageInput.focus();
     }
 }
 
