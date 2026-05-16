@@ -178,7 +178,22 @@ input:checked + .slider:before {
     text-align: center; border: 2px solid var(--border-color);
 }
 .gender-options { display: flex; gap: 10px; justify-content: center; margin: 15px 0; }
-
+/* تنسيق مربع الاهتمامات جوه الـ Pop-up */
+#interests-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+#interests-input:focus {
+    border-color: var(--sunburst);
+}
 /* ضبط أبعاد الموبايل والـ Bottom Controls */
 @media (max-width: 480px) {
     header { 
