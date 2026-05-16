@@ -19,6 +19,7 @@ let userFlag = '';
 let selectedGender = ''; // لتخزين اختيار الجيندر
 let typingTimeout;
 let lastTypingTime = 0;
+let pingInterval; // متغير عشان نحفظ فيه التايمر بتاع البنج
 
 // لقط اختيار الجيندر من الـ Pop-up وقفل المودال فوراً وبدء الشات
 genderButtons.forEach(btn => {
@@ -90,6 +91,13 @@ function connectToServer() {
         sendBtn.disabled = false;
         actionBtn.innerHTML = 'Skip';
         isChatting = true;
+
+        // الصياعة: يبعت بنج كل 30 ثانية عشان السيرفر ميفصلش
+        pingInterval = setInterval(() => { 
+            if(ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'ping' })); 
+            }
+        }, 30000);
     };
 
     ws.onmessage = (event) => {
@@ -122,7 +130,9 @@ function resetChatState() {
     messageInput.value = '';
     actionBtn.innerHTML = 'Start';
     typingIndicator.classList.add('hidden');
-    // مفيش داعي نقفل زرار Start هنا عشان محتاجينه يفتح الـ Pop-up لو اليوزر عمل ريفريش
+    
+    // تنظيف التايمر بتاع البنج لما السيرفر يفصل عشان ميعلقش الذاكرة
+    if (pingInterval) clearInterval(pingInterval);
 }
 
 // تعديل منطق زرار Start / Skip
