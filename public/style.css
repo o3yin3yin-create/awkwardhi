@@ -178,7 +178,7 @@ input:checked + .slider:before { transform: translateX(20px); }
         transform: scale(0.5) !important; 
         transform-origin: center !important; 
         margin: 0 !important; 
-        width: 15px !important;
+        width: 10px !important;
     }
 
     /* منطقة الكتابة وزرار Start/Skip (إرجاع الكرامة) */
