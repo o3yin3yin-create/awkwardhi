@@ -138,54 +138,66 @@ input:checked + .slider:before { transform: translateX(20px); }
     color: var(--you-color);
 }
 /* ضبط التصميم خصيصاً للشاشات الصغيرة والموبايل */
+/* تنسيق الـ Pop-up السحري (Modal) */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    opacity: 1; transition: opacity 0.2s ease;
+}
+.modal.hidden { display: none !important; }
+.modal-content {
+    background: var(--bg-color, #1e2530);
+    padding: 20px; width: 85%; max-width: 320px;
+    text-align: center; border: 2px solid var(--border-color);
+}
+.gender-options { display: flex; gap: 10px; justify-content: center; margin: 15px 0; }
+
+/* ضبط أبعاد الموبايل والـ Bottom Controls */
 @media (max-width: 480px) {
-    header {
+    header { padding: 8px 12px; gap: 5px; }
+    h1 { font-size: 18px; }
+    #report-btn { padding: 4px 8px; font-size: 11px; }
+    .theme-switch-wrapper { transform: scale(0.75); }
+
+    /* ضبط منطقة الكتابة وزرار Start لمنع التداخل */
+    .bottom-controls {
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
-        justify-content: space-between;
         gap: 8px;
-        padding: 8px 12px;
-    }
-
-    h1 {
-        font-size: 18px; /* تصغير اسم الموقع */
-    }
-
-    /* زرار الريبورت بقى كبسولة صغيرة */
-    #report-btn {
-        padding: 4px 10px;
-        font-size: 11px;
-        height: auto;
-        order: 2;
-    }
-
-    /* التوجل نزل حجمه لـ 75% عشان ميزمجرش في الشاشة */
-    .theme-switch-wrapper {
-        order: 3;
-        transform: scale(0.75);
-        margin: 0;
-    }
-
-    /* تخسيس سكشن الجيندر بالكامل */
-    .gender-container {
         padding: 10px;
-        margin-bottom: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    #action-btn {
+        padding: 10px 15px;
+        font-size: 14px;
+        min-width: 70px;
+        height: 45px;
+    }
+    .input-container {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        position: relative;
+    }
+    #message-input {
+        width: 100%;
+        height: 45px;
+        padding: 10px 40px 10px 12px;
+        font-size: 14px;
     }
 
-    .gender-container h3 {
-        font-size: 14px; /* تصغير كلمة Select Gender */
-        margin-bottom: 8px;
+    /* تخسيس الرسايل للنص عشان الشاشة تشيل كلام أكتر */
+    .message, .system-msg {
+        font-size: 13px !important; 
+        padding: 4px 8px !important;
+        margin-bottom: 4px !important;
     }
-
-    /* تصغير أزرار Male و Female */
-    .gender-btn {
-        padding: 6px 12px;
-        font-size: 12px;
-    }
-
-    .gender-subtext {
-        font-size: 10px;
-        margin-top: 6px;
+    .system-msg {
+        font-size: 11px !important;
+        color: #888;
     }
 }
