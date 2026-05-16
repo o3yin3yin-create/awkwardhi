@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
 
-const app = reportCount = express();
+const app = express(); // تم تصليح الغلطة هنا
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
@@ -14,11 +14,20 @@ const reportCounts = new Map();
 
 // قائمة الكلمات المحظورة
 const bannedWords = [
-     'nudes', 'sex',
+    'nudes', 'sex',
     'horny', 'snapchat', 'send pics', 'onlyfans',
     'fuck', 'bitch', 'shit', 'asshole', 'dick', 'pussy', 'slut', 'whore',
-    
 ];
+
+// دالة حصرية بتعد الناس الأونلاين وتبعتهالهم لايف
+function broadcastOnlineCount() {
+    const count = wss.clients.size;
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({ type: 'online_count', count: count }));
+        }
+    });
+}
 
 wss.on('connection', (ws, req) => {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
@@ -29,19 +38,24 @@ wss.on('connection', (ws, req) => {
         return;
     }
 
+    // أول ما اليوزر يدخل، السيرفر يبعت الرقم الجديد لكل الناس
+    broadcastOnlineCount();
+
     ws.userIP = ip;
     ws.messageTimestamps = [];
 
     ws.on('message', (message) => {
         const data = JSON.parse(message);
 
+        // استقبال البنج عشان السيرفر يفضل مصحصح وميقفلش الشات
+        if (data.type === 'ping') return;
+
         if (data.type === 'start') {
             const userInterests = data.interests || [];
             const userFlag = data.flag || '';
-            const userGender = data.gender || 'male'; // استقبال الجيندر
+            const userGender = data.gender || 'male'; 
             let partnerIndex = -1;
 
-            // طباعة إحصائية في كونسول السيرفر فقط لمتابعة الترافيك
             console.log(`[Analytics] A ${userGender} connected from IP: ${ip}`);
 
             if (userInterests.length > 0) {
@@ -63,8 +77,6 @@ wss.on('connection', (ws, req) => {
 
                 const commonInterests = userInterests.filter(i => partnerData.interests.includes(i));
                 
-                // --- الشفرة السرية (Easter Egg) للشريك ---
-                // لو الشريك ولد يحط نقطتين .. لو بنت يحط 3 نقط ...
                 const wsDots = partnerData.gender === 'female' ? '...' : '..';
                 const partnerDots = userGender === 'female' ? '...' : '..';
 
@@ -80,7 +92,6 @@ wss.on('connection', (ws, req) => {
                 ws.send(JSON.stringify({ type: 'system', message: msgForUser.trim() }));
                 partnerWs.send(JSON.stringify({ type: 'system', message: msgForPartner.trim() }));
             } else {
-                // حفظ الجيندر في الطابور عشان نقراه لما حد يلقط معاه
                 waitingUsers.push({ ws: ws, interests: userInterests, flag: userFlag, gender: userGender });
             }
         }
@@ -159,6 +170,9 @@ wss.on('connection', (ws, req) => {
             ws.partner.send(JSON.stringify({ type: 'system', message: 'They left. Probably because of something you said.' }));
             ws.partner.partner = null;
         }
+        
+        // أول ما اليوزر يخرج، السيرفر يقلل الرقم ويبعته للكل
+        broadcastOnlineCount();
     });
 });
 

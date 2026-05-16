@@ -3,52 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-<title>AwkwardHi | Random Chat</title>    <meta name="description" content="زهقان؟ ادخل كلم ناس غريبة بشكل عشوائي ومجهول تماماً بدون تسجيل أو حساب..">
+    <title>AwkwardHi | Random Chat</title>    
+    <meta name="description" content="زهقان؟ ادخل كلم ناس غريبة بشكل عشوائي ومجهول تماماً بدون تسجيل أو حساب..">
     <meta name="keywords" content="بديل اوميجل, شات مجهول, دردشة عشوائية, شات بدون تسجيل, شات كتابي, موقع زي اوميجل, Omegle alternative, random chat, anonymous chat, AwkwardHi">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
         
         <header class="box-shadow rounded">
-            <div class="logo"><span class="sunburst-text">Awkward</span><span class="midnight-text">Hi</span></div>
+            <div class="logo">
+                <span class="sunburst-text">Awkward</span><span class="midnight-text">Hi</span>
+                <span style="font-size: 11px; color: #888; font-weight: normal; margin-left: 8px;">🟢 <span id="online-count">1</span></span>
+            </div>
+            
             <div class="header-right">
-                <button id="report-btn" class="report-btn" title="Report User"> Report</button>
-               <div class="theme-switch-wrapper">
-    <label class="theme-switch" for="theme-switch">
-        <input type="checkbox" id="theme-switch">
-        <div class="slider round"></div>
-    </label>
-</div>
+                <button id="report-btn" class="report-btn" title="Report User">Report</button>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="theme-switch">
+                        <input type="checkbox" id="theme-switch">
+                        <div class="slider round"></div>
+                    </label>
+                </div>
             </div>
         </header>
 
-    
-
-      <div id="gender-modal" class="modal hidden">
-    <div class="modal-content box-shadow rounded">
-        <h3 style="margin-bottom: 15px;">Before we start...</h3>
-        
-        <input type="text" id="interests-input" placeholder="Add interests (comma separated)..." autocomplete="off">
-        
-        <div class="gender-options">
-            <button class="gender-btn" data-gender="male">Male 👦</button>
-            <button class="gender-btn" data-gender="female">Female 👩</button>
+        <div id="gender-modal" class="modal hidden">
+            <div class="modal-content box-shadow rounded">
+                <h3 style="margin-bottom: 15px;">Before we start...</h3>
+                
+                <input type="text" id="interests-input" placeholder="Add interests (comma separated)..." autocomplete="off">
+                
+                <div class="gender-options">
+                    <button class="gender-btn" data-gender="male">Male 👦</button>
+                    <button class="gender-btn" data-gender="female">Female 👩</button>
+                </div>
+                <p class="gender-subtext">Type interests, pick your gender, and let's go!</p>
+            </div>
         </div>
-        <p class="gender-subtext">Type interests, pick your gender, and let's go!</p>
-    </div>
-</div>
 
         <div class="chat-box rounded" id="chat-box">
-            </div>
+        </div>
         
         <div id="typing-indicator" class="typing-indicator hidden">Stranger is typing...</div>
 
         <div class="bottom-controls">
-             <button id="action-btn">Start</button>                
-            </button>
+            <button id="action-btn">Start</button>                
 
             <div class="input-wrapper box-shadow rounded">
                 <input type="text" id="message-input" placeholder="Type a message..." disabled>
@@ -62,8 +62,8 @@
         </div>
 
         <div class="developer-credit">
-    AwkwardHi crafted in Egypt 🇪🇬 by <a href="https://www.instagram.com/jj3_xx?igsh=MWVkaGI5ZjNsb3Nreg%3D%3D&utm_source=qr" target="_blank" class="dev-link">6afra</a>
-</div>
+            AwkwardHi crafted in Egypt 🇪🇬 by <a href="https://www.instagram.com/jj3_xx?igsh=MWVkaGI5ZjNsb3Nreg%3D%3D&utm_source=qr" target="_blank" class="dev-link">6afra</a>
+        </div>
     </div>
 
     <script src="app.js"></script>

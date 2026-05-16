@@ -87,7 +87,6 @@ function connectToServer() {
         actionBtn.innerHTML = 'Skip';
         isChatting = true;
 
-        // التريكاية الأولى: تفعيل مربع الكتابة فوراً بعد ما الشات يبدأ (مع ديلاي بسيط عشان يلحق الـ DOM)
         setTimeout(() => {
             messageInput.focus();
         }, 100);
@@ -113,6 +112,10 @@ function connectToServer() {
             typingTimeout = setTimeout(() => {
                 typingIndicator.classList.add('hidden');
             }, 2000);
+        } else if (data.type === 'online_count') {
+            // استقبال وتحديث عدد الأونلاين لايف
+            const countEl = document.getElementById('online-count');
+            if (countEl) countEl.innerText = data.count;
         }
     };
 
@@ -153,7 +156,6 @@ function sendMessage() {
         ws.send(JSON.stringify({ type: 'chat', message: text }));
         messageInput.value = '';
         
-        // التريكاية التانية: الكيبورد يفضل مفتوح بعد ما تبعت الرسالة
         messageInput.focus();
     }
 }
