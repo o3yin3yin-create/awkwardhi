@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>AwkwardHi | بديل أوميجل للشات العشوائي</title>
+    <meta name="description" content="زهقان؟ ادخل كلم ناس غريبة بشكل عشوائي ومجهول تماماً بدون تسجيل أو حساب. أفضل بديل لأوميجل (شات كتابي فقط).">
+    <meta name="keywords" content="بديل اوميجل, شات مجهول, دردشة عشوائية, شات بدون تسجيل, شات كتابي, موقع زي اوميجل, Omegle alternative, random chat, anonymous chat, AwkwardHi">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <header class="box-shadow rounded">
+            <div class="logo"><span class="sunburst-text">Awkward</span><span class="midnight-text">Hi</span></div>
+            <div class="header-right">
+                <button id="report-btn" class="report-btn" title="Report User">🚩 Report</button>
+                <div class="theme-toggle">
+                    <span>☀️</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider round"></span>
+                    </label>
+                    <span>🌙</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="interests-wrapper box-shadow rounded">
+            <span class="interests-label">Interests:</span>
+            <input type="text" id="interests-input" placeholder="Add interests (comma separated)...">
+        </div>
+
+        <div class="gender-wrapper box-shadow rounded">
+            <span class="gender-label">Select Gender:</span>
+            <div class="gender-options">
+                <button type="button" class="gender-btn" data-gender="male">Male 🧑</button>
+                <button type="button" class="gender-btn" data-gender="female">Female 👩</button>
+            </div>
+            <div class="gender-notice">Nobody will see your gender. We just need it for our boring pie charts.</div>
+        </div>
+
+        <div class="chat-box rounded" id="chat-box">
+            </div>
+        
+        <div id="typing-indicator" class="typing-indicator hidden">Stranger is typing...</div>
+
+        <div class="bottom-controls">
+            <button id="action-btn" class="action-btn box-shadow rounded" disabled>
+                Start
+            </button>
+
+            <div class="input-wrapper box-shadow rounded">
+                <input type="text" id="message-input" placeholder="Type a message..." disabled>
+                <button id="send-btn" class="send-btn" disabled>
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="developer-credit">
+    AwkwardHi crafted in Egypt 🇪🇬 by <a href="https://www.instagram.com/jj3_xx?igsh=MWVkaGI5ZjNsb3Nreg%3D%3D&utm_source=qr" target="_blank" class="dev-link">6afra</a>
+</div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
