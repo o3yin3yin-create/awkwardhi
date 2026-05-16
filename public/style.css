@@ -33,6 +33,7 @@ body {
     background-size: 25px 25px;
     color: var(--text-color);
     display: flex; justify-content: center; align-items: center; height: 100dvh; transition: background-color 0.3s ease;
+    overflow: hidden; /* بيمنع الشاشة كلها تتحرك، السكرول في الشات بس */
 }
 
 .rounded { border-radius: var(--border-radius); }
@@ -81,23 +82,9 @@ input:checked + .slider:before {
     background-color: var(--box-bg);
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
-/* ========================================================= */
-
-.interests-wrapper { background: var(--box-bg); padding: 12px 20px; display: flex; align-items: center; gap: 10px; }
-.interests-label { font-weight: bold; color: var(--stranger-color); white-space: nowrap; }
-.interests-wrapper input { flex: 1; border: none; outline: none; background: transparent; font-size: 1rem; color: var(--text-color); }
 
 /* ستايل بوكس الجيندر */
-.gender-wrapper {
-    background: var(--box-bg);
-    padding: 12px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 15px;
-}
-.gender-label { font-weight: bold; color: var(--stranger-color); }
-.gender-options { display: flex; gap: 10px; }
+.gender-options { display: flex; gap: 10px; justify-content: center; margin: 15px 0; }
 .gender-btn {
     background: transparent;
     border: 1px solid var(--border-color);
@@ -119,13 +106,6 @@ input:checked + .slider:before {
     color: var(--midnight);
     border-color: var(--sunburst);
 }
-.gender-notice {
-    font-size: 0.85rem;
-    color: #888;
-    font-style: italic;
-    width: 100%;
-    margin-top: 2px;
-}
 
 /* ================= ستايل الصندوق الزجاجي (Glassmorphism) ================= */
 .chat-box { 
@@ -139,16 +119,14 @@ input:checked + .slider:before {
     overflow-y: auto; 
     display: flex; 
     flex-direction: column; 
-    gap: 0; /* لغينا الـ gap عشان سفاري ميهيسش */
+    gap: 0; 
 }
 
-/* السحر: السوستة اللي بتزق الرسايل لتحت */
 .chat-box::before {
     content: "";
     flex: 1;
 }
 
-/* تظبيط البلور في الـ Dark Mode عشان يبقى متناسق */
 [data-theme="dark"] .chat-box { 
     background: rgba(45, 45, 45, 0.4); 
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -163,13 +141,33 @@ input:checked + .slider:before {
 .stranger { font-weight: bold; color: var(--stranger-color); }
 
 .typing-indicator { font-size: 0.9rem; color: #888; font-style: italic; padding: 0 20px; transition: opacity 0.3s; }
-.hidden { opacity: 0; pointer-events: none; height: 0; overflow: hidden; }
+
+/* القاضية لمشكلة المسافة الفاضية: إخفاء العنصر بالكامل من التخطيط */
+.hidden { display: none !important; }
 
 .bottom-controls { display: flex; gap: 10px; height: 60px; }
-.action-btn { background: var(--action-btn-bg); color: var(--text-color); border: none; width: 100px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.2s; }
-.action-btn:hover { transform: scale(0.98); }
-.action-btn:disabled { background: #ccc; color: #666; cursor: not-allowed; transform: none; }
-[data-theme="dark"] .action-btn:disabled { background: #444; color: #888; }
+
+/* ================= زرار Start / Skip بألوان البراند ================= */
+#action-btn { 
+    background: var(--sunburst); 
+    color: var(--midnight); 
+    border: none; 
+    width: 100px; 
+    font-weight: 800; 
+    font-size: 1.1rem; 
+    cursor: pointer; 
+    transition: 0.2s; 
+    border-radius: var(--border-radius);
+}
+#action-btn:hover { transform: scale(0.96); opacity: 0.9; }
+
+/* ستايل الزرار في الدارك مود */
+[data-theme="dark"] #action-btn { 
+    background: var(--midnight); 
+    color: var(--sunburst);
+    border: 2px solid var(--sunburst);
+}
+/* ========================================================== */
 
 .input-wrapper { flex: 1; background: var(--box-bg); display: flex; align-items: center; padding: 5px 15px; }
 .input-wrapper input { flex: 1; border: none; outline: none; background: transparent; font-size: 1.1rem; color: var(--text-color); }
@@ -179,173 +177,102 @@ input:checked + .slider:before {
 
 .developer-credit { text-align: center; font-size: 0.8rem; color: #888; margin-top: -5px; margin-bottom: 5px; }
 [data-theme="dark"] .developer-credit { color: #555; }
-/* ستايل لينك المطور الجديد */
-.dev-link {
-    color: var(--stranger-color);
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.2s ease;
-}
-.dev-link:hover {
-    color: var(--you-color);
-}
+.dev-link { color: var(--stranger-color); text-decoration: none; font-weight: bold; transition: color 0.2s ease; }
+.dev-link:hover { color: var(--you-color); }
 
-/* تنسيق الـ Pop-up السحري (Modal) */
 .modal {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.6);
     display: flex; align-items: center; justify-content: center;
     z-index: 9999;
-    opacity: 1; transition: opacity 0.2s ease;
 }
-.modal.hidden { display: none !important; }
 .modal-content {
     background: var(--bg-color, #1e2530);
     padding: 20px; width: 85%; max-width: 320px;
     text-align: center; border: 2px solid var(--border-color);
 }
-.gender-options { display: flex; gap: 10px; justify-content: center; margin: 15px 0; }
-/* تنسيق مربع الاهتمامات جوه الـ Pop-up */
 #interests-input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-color);
-    color: var(--text-color);
-    font-size: 14px;
-    outline: none;
-    box-sizing: border-box;
+    width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px;
+    border: 1px solid var(--border-color); background: var(--bg-color);
+    color: var(--text-color); font-size: 14px; outline: none; box-sizing: border-box;
 }
-#interests-input:focus {
-    border-color: var(--sunburst);
-}
+#interests-input:focus { border-color: var(--sunburst); }
 
-/* ================= العداد النابض (Online Status) ================= */
 .online-status {
-    display: flex;
-    justify-content: flex-end; 
-    align-items: center;
-    gap: 6px;
-    padding-right: 10px;
-    font-size: 11px;
-    color: var(--text-color);
-    opacity: 0.5; 
-    margin-bottom: -5px; 
-    font-weight: 500;
+    display: flex; justify-content: flex-end; align-items: center; gap: 6px;
+    padding-right: 10px; font-size: 11px; color: var(--text-color);
+    opacity: 0.5; margin-bottom: -5px; font-weight: 500;
 }
-
 .pulse-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #22c55e;
-    border-radius: 50%;
-    display: inline-block;
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%;
+    display: inline-block; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
     animation: pulse 1.5s infinite; 
 }
-
 @keyframes pulse {
     0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
     70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
     100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
 }
-/* ========================================================= */
 
-/* ضبط أبعاد الموبايل والـ Bottom Controls */
+/* ================= ضبط أبعاد الموبايل والـ Bottom Controls ================= */
 @media (max-width: 480px) {
-    header { 
-        padding: 8px 12px; 
-        gap: 8px; 
+    /* تكبير الكونتينر عشان ياخد الشاشة كلها ونلغي الفراغات تماماً */
+    .app-container {
+        height: 100dvh !important; 
+        max-height: 100dvh;
+        padding: 10px 12px;
+        gap: 8px; /* المسافة بقت أصغر بكتير */
     }
+
+    header { padding: 8px 12px; gap: 8px; }
     h1 { font-size: 18px; }
 
     #report-btn { 
-        padding: 4px 10px !important; 
-        font-size: 11px !important; 
-        height: 26px !important; 
-        min-width: unset !important; 
-        margin-left: auto !important; 
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        padding: 4px 10px !important; font-size: 11px !important; 
+        height: 26px !important; min-width: unset !important; 
+        margin-left: auto !important; display: flex !important;
+        align-items: center !important; justify-content: center !important;
     }
     
-    .theme-switch-wrapper { 
-        transform: none !important; 
-        margin: 0 !important; 
-        width: auto !important;
-    }
+    .theme-switch-wrapper { transform: none !important; margin: 0 !important; width: auto !important; }
 
     .bottom-controls {
-        display: flex;
-        align-items: stretch;
-        gap: 10px;
-        padding: 10px;
-        width: 100%;
-        height: 65px;
-        box-sizing: border-box;
+        display: flex; align-items: stretch; gap: 10px;
+        padding: 5px 0 10px 0; width: 100%; height: 65px; box-sizing: border-box;
     }
 
     #action-btn {
-        padding: 0 15px;
-        font-size: 14px;
-        height: 100% !important;
-        white-space: nowrap;
-        flex-shrink: 0; 
-        min-width: 75px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 12px;
+        padding: 0 15px; font-size: 15px; font-weight: 800;
+        height: 100% !important; white-space: nowrap; flex-shrink: 0; 
+        min-width: 75px; display: flex; align-items: center;
+        justify-content: center; border-radius: 12px;
     }
 
     .input-wrapper {
-        display: flex;
-        flex-grow: 1;
-        align-items: center;
-        position: relative;
-        height: 100% !important;
-        padding: 0 10px 0 15px !important;
-        border-radius: 12px;
+        display: flex; flex-grow: 1; align-items: center; position: relative;
+        height: 100% !important; padding: 0 10px 0 15px !important; border-radius: 12px;
     }
 
     #message-input {
-        width: 100%;
-        height: 100% !important;
-        padding: 0 !important;
-        font-size: 16px !important; /* السر هنا: 16 بيكسل بتمنع سفاري يعمل زوم */
-        box-sizing: border-box;
+        width: 100%; height: 100% !important; padding: 0 !important;
+        font-size: 16px !important; box-sizing: border-box;
     }
-    /* تضييق المسافات ورجوع الـ flex بشكل آمن لسفاري */
+
     .chat-box {
-        display: flex !important; 
-        flex-direction: column !important;
-        gap: 0 !important; /* صفرنا الـ gap عشان المسافات تفضل مسطرة */
-        padding: 15px 12px !important;
+        display: flex !important; flex-direction: column !important;
+        gap: 0 !important; padding: 15px 12px !important;
     }
 
-    /* تكبير وتظبيط الرسايل العادية مسطرة */
     .message {
-        font-size: 15px !important; 
-        padding: 0 !important; 
-        margin: 0 0 6px 0 !important; 
-        line-height: 1.4 !important;
-        display: block !important;
-        word-wrap: break-word !important;
+        font-size: 15px !important; padding: 0 !important; 
+        margin: 0 0 6px 0 !important; line-height: 1.4 !important;
+        display: block !important; word-wrap: break-word !important;
     }
 
-    /* تظبيط رسايل السيستم */
     .system-msg {
-        font-size: 11.5px !important; 
-        padding: 0 !important;
-        margin: 8px 0 !important; 
-        font-weight: 400 !important; 
-        line-height: 1.2 !important;
-        color: #888 !important;
-        text-align: center !important;
-        display: block !important;
+        font-size: 11.5px !important; padding: 0 !important;
+        margin: 8px 0 !important; font-weight: 400 !important; 
+        line-height: 1.2 !important; color: #888 !important;
+        text-align: center !important; display: block !important;
     }
 }
